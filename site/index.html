@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d1c" />
+    <meta name="description" content="십자키와 A·B 버튼으로 사방에서 날아오는 공격을 박자에 맞춰 베고 막는 리듬 게임" />
+    <title>리듬 나이트</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffd34d'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="stage">
+        <canvas id="game" aria-label="게임 화면"></canvas>
+
+        <section id="menu" class="screen">
+          <div class="panel">
+            <h1>리듬 나이트</h1>
+            <p class="lead">사방에서 날아오는 공격을 박자에 맞춰 베고 막아라!</p>
+            <nav class="list">
+              <button data-start="tutorial">튜토리얼 <small data-best="tutorial"></small></button>
+              <button data-start="easy">쉬움 <small data-best="easy"></small></button>
+              <button data-start="normal">보통 <small data-best="normal"></small></button>
+              <button data-start="hard">어려움 <small data-best="hard"></small></button>
+            </nav>
+            <table class="guide">
+              <caption>8가지 액션 = 십자키 방향 + 버튼</caption>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="a">A 베기<br /><small>빨간 가시 몬스터</small></th>
+                  <th class="b">B 막기<br /><small>파란 마법탄</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th>↑</th><td>위 베기</td><td>위 막기</td></tr>
+                <tr><th>↓</th><td>아래 베기</td><td>아래 막기</td></tr>
+                <tr><th>←</th><td>왼쪽 베기</td><td>왼쪽 막기</td></tr>
+                <tr><th>→</th><td>오른쪽 베기</td><td>오른쪽 막기</td></tr>
+              </tbody>
+            </table>
+            <p class="keys">
+              키보드: 방향키(WASD) + <kbd>Z</kbd> = A, <kbd>X</kbd> = B, <kbd>Esc</kbd> 일시정지<br />
+              게임패드(십자키 + A/B)와 터치 화면 버튼도 지원
+            </p>
+          </div>
+        </section>
+
+        <section id="dialog" class="screen hidden" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+          <div class="panel card">
+            <h2 id="dialog-title" data-title></h2>
+            <p data-text></p>
+            <div class="row">
+              <button data-act="next" data-label>계속</button>
+              <button data-act="menu" class="ghost">그만하기</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="pause" class="screen hidden">
+          <div class="panel card">
+            <h2>일시정지</h2>
+            <div class="list">
+              <button data-act="resume">계속하기</button>
+              <button data-act="retry">처음부터</button>
+              <button data-act="menu">메뉴로</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="result" class="screen hidden">
+          <div class="panel card">
+            <h2 data-title></h2>
+            <div class="rank" data-rank></div>
+            <p class="best" data-newbest hidden>NEW BEST!</p>
+            <dl class="stats">
+              <dt>점수</dt><dd data-stat="score"></dd>
+              <dt>정확도</dt><dd data-stat="accuracy"></dd>
+              <dt>최대 콤보</dt><dd data-stat="maxCombo"></dd>
+              <dt>PERFECT</dt><dd data-stat="perfect"></dd>
+              <dt>GREAT</dt><dd data-stat="great"></dd>
+              <dt>GOOD</dt><dd data-stat="good"></dd>
+              <dt>MISS</dt><dd data-stat="miss"></dd>
+            </dl>
+            <div class="row">
+              <button data-act="retry">다시하기</button>
+              <button data-act="menu">메뉴로</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="pad">
+        <div class="dpad" data-dpad>
+          <span class="up">▲</span><span class="down">▼</span><span class="left">◀</span><span class="right">▶</span>
+        </div>
+        <button class="mini" data-key="start" tabindex="-1" aria-label="일시정지">II</button>
+        <div class="ab">
+          <button class="b" data-key="B" tabindex="-1">B</button>
+          <button class="a" data-key="A" tabindex="-1">A</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
